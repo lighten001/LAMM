@@ -237,7 +237,7 @@ Download required NLTK data
     nltk.download('wordnet')
 ```
 
-Optional:
+<details><summary> Optional (less GPU memory and faster) </summary>
 
 - for training
 
@@ -246,7 +246,17 @@ Optional:
         > FlashAttention-2 currently supports Ampere, Ada, or Hopper GPUs (e.g., A100, RTX 3090, RTX 4090, H100).
 
     - xformers   
-    Install xformers if you are tight in GPU memory and cannot use flash attention (e.g., using Nvidia v100). Please refer to [xformers's installation](https://github.com/facebookresearch/xformers#installing-xformers)
+    Install xformers if you are tight in GPU memory and cannot use flash attention (e.g., using Nvidia v100). Please refer to [xformers's installation](https://github.com/facebookresearch/xformers#installing-xformers) or follow below instruction.
+        ```
+        # (Optional) Makes the build much faster
+        pip install ninja
+        # Set TORCH_CUDA_ARCH_LIST if running and building on different GPU types
+        pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
+        # (this can take dozens of minutes)
+
+        # and this command will provide information on an xFormers installation, and what kernels are built/available:
+        python -m xformers.info
+        ```
 
 - for inference
 
@@ -257,6 +267,7 @@ Optional:
         cd lightllm
         python setup.py install
         ```
+</details>
 
 ## Data & Model Preparation for Training
 - Data
